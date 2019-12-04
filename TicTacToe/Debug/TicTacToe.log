@@ -1,2 +1,8 @@
-﻿  main.cpp
+﻿  GameBoard.cpp
+c:\users\s199083\source\repos\tictactoe\tictactoe\gameboard.cpp(34): warning C4018: '<': signed/unsigned mismatch
+c:\users\s199083\source\repos\tictactoe\tictactoe\gameboard.cpp(36): warning C4018: '<': signed/unsigned mismatch
+c:\users\s199083\source\repos\tictactoe\tictactoe\gameboard.cpp(46): warning C4018: '<': signed/unsigned mismatch
+c:\users\s199083\source\repos\tictactoe\tictactoe\gameboard.cpp(48): warning C4018: '<': signed/unsigned mismatch
+  main.cpp
+  Generating Code...
   TicTacToe.vcxproj -> C:\Users\s199083\source\repos\TicTacToe\Debug\TicTacToe.exe
