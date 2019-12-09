@@ -10,10 +10,11 @@ public:
 	GameBoard();
 	~GameBoard();
 
-	GameBoard(size_t size);
+	void createBoardArr(GameBoard& game, int _size);
+	void printBoardArr(GameBoard& game, int _size);
+	bool winCheck(GameBoard& game, int _size, char player);
 
-	int board[3][3];
-	void createBoardArr(GameBoard& game, size_t size);
-	void printBoardArr(GameBoard& game, size_t size);
+	//int board[9][9];
+	char board[9][9];
 };
 

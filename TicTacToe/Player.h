@@ -1,7 +1,16 @@
 #pragma once
 #include <iostream>
 
-struct Player
+using std::cout;
+using std::cin;
+using std::endl;
+
+class Player
 {
+public:
+	Player();
+	~Player();
+	void turn();
 	char name[10];
+	char cellChoice;
 };
