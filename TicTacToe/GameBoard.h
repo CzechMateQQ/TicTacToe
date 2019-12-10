@@ -12,9 +12,9 @@ public:
 
 	void createBoardArr(GameBoard& game, int _size);
 	void printBoardArr(GameBoard& game, int _size);
-	bool winCheck(GameBoard& game, int _size, char player);
-
-	//int board[9][9];
-	char board[9][9];
+	bool winCheck(GameBoard& game, int _size, int player);
+	bool tieCheck(GameBoard& game, int _size);
+	int boardSize;
+	int** board;
 };
 

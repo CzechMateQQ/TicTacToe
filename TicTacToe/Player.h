@@ -12,5 +12,5 @@ public:
 	~Player();
 	void turn();
 	char name[10];
-	char cellChoice;
+	int cellChoice;
 };

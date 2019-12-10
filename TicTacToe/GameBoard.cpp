@@ -1,52 +1,20 @@
 #include "GameBoard.h"
 #include <iostream>
 #include <stdio.h>
-
-
+#include <string>
 
 GameBoard::GameBoard()
 {     
-	//cout << "       " << "|" << "       " << "|" << "       " << endl;
-	//cout << "       " << "|" << "       " << "|" << "       " << endl;
-	//cout << "       " << "|" << "       " << "|" << "       " << endl;
-	//cout << "_______" << "|" << "_______" << "|" << "_______" << endl;
-	//cout << "       " << "|" << "       " << "|" << "       " << endl;
-	//cout << "       " << "|" << "       " << "|" << "       " << endl;
-	//cout << "       " << "|" << "       " << "|" << "       " << endl;
-	//cout << "_______" << "|" << "_______" << "|" << "_______" << endl;
-	//cout << "       " << "|" << "       " << "|" << "       " << endl;
-	//cout << "       " << "|" << "       " << "|" << "       " << endl;
-	//cout << "       " << "|" << "       " << "|" << "       " << endl;
 }
-
-//void GameBoard::createBoardArr(GameBoard& game, int _size)
-//{
-//	int val = 1;
-//	//Set GameBoard values incrementing from 1
-//	for (int i = 0; i < _size; ++i)
-//	{
-//		for (int j = 0; j < _size; ++j)
-//		{
-//			game.board[i][j] = val;
-//			val++;
-//		}
-//	}
-//
-//	//for (int i = 0; i < _size; ++i)
-//	//{
-//	//	for (int j = 0; j < _size; ++j)
-//	//	{
-//	//		*intToChar[i][j] = '0' + *game.board[i];
-//	//	}
-//	//}
-//}
 
 void GameBoard::createBoardArr(GameBoard& game, int _size)
 {
-	int val = 33;
+	int val = 1;
+	game.board= new int*[_size];
 	//Set GameBoard values incrementing from 1
 	for (int i = 0; i < _size; ++i)
 	{
+		game.board[i] = new int[_size];
 		for (int j = 0; j < _size; ++j)
 		{
 			game.board[i][j] = val;
@@ -55,64 +23,41 @@ void GameBoard::createBoardArr(GameBoard& game, int _size)
 	}
 }
 
-//void GameBoard::printBoardArr(GameBoard& game, int _size)
-//{
-//	//Print numbers 1 to "_size" in respective cells for
-//	//user readability and interaction
-//	for (int i = 0; i < _size; ++i)
-//	{
-//		if (*game.board[i] < 10)
-//		{
-//			for (int j = 0; j < _size; ++j)
-//			{
-//				cout << "   "  << *game.board[i] << "  " << "|";
-//			}
-//			cout << endl;
-//		}
-//		else
-//		{
-//			for (int j = 0; j < _size; ++j)
-//			{
-//				cout << "  " << *game.board[i] << "  " << "|";
-//			}
-//			cout << endl;
-//		}
-//		int line = 0;
-//		while (line < _size * _size)
-//		{
-//			cout << "______|";
-//			line += 6;
-//		}
-//		cout << endl;
-//	}
-//
-//	//Convert to char array for 'X' and 'O' swaps
-//	intToChar = (char*)game.board;
-//}
-
 void GameBoard::printBoardArr(GameBoard& game, int _size)
 {
 	//Print numbers 1 to "_size" in respective cells for
 	//user readability and interaction
 	for (int i = 0; i < _size; ++i)
 	{
-		for (int j = 0; j < _size; ++j)
-		{
-			cout << "   " << game.board[i][j] << "  " << "|";
-		}
-		cout << endl;
-		
+			for (int j = 0; j < _size; ++j)
+			{
+				if (game.board[i][j] < 10)
+				{
+					std::string tmp = game.board[i][j] > 0 ? std::to_string(game.board[i][j]) : game.board[i][j] == -1 ?  "X":"O";
+					cout << "   " << tmp << "  " << "|";
+				}
+				else if(game.board[i][j] >= 10 && game.board[i][j] < 100)
+				{
+					cout << "  " << game.board[i][j] << "  " << "|";
+				}
+				else
+				{
+					cout << "  " << game.board[i][j] << " " << "|";
+				}
+			}
+			cout << endl;
+
 		int line = 0;
-		while (line < _size * _size)
+		while (line < _size)
 		{
 			cout << "______|";
-			line += 6;
+			line ++;
 		}
 		cout << endl;
 	}
 }
 
-bool GameBoard::winCheck(GameBoard& game, int _size, char player)
+bool GameBoard::winCheck(GameBoard& game, int _size, int player)
 {
 	int horiz = 0;
 	int vert = 0;
@@ -133,7 +78,7 @@ bool GameBoard::winCheck(GameBoard& game, int _size, char player)
 			}
 		}
 
-		if (horiz == 3 || vert == 3)
+		if (horiz == _size || vert == _size)
 		{
 			return true;
 		}
@@ -149,7 +94,7 @@ bool GameBoard::winCheck(GameBoard& game, int _size, char player)
 			{
 				diagOne++;
 			}
-			if (i + j == _size + 1 && game.board[i][j] == player)
+			if ((i + j) == (_size - 1) && game.board[i][j] == player)
 			{
 				diagTwo++;
 			}
@@ -160,6 +105,27 @@ bool GameBoard::winCheck(GameBoard& game, int _size, char player)
 			return true;
 		}
 	}
+	return false;
+}
+
+bool GameBoard::tieCheck(GameBoard& game, int _size)
+{
+	int counter = 0;
+	for (int i = 0; i < _size; ++i)
+	{
+		for (int j = 0; j < _size; ++j)
+		{
+			if (game.board[i][j] < 0)
+			{
+				counter++;
+			}
+		}
+	}
+	if (counter == _size * _size)
+	{
+		return true;
+	}
+	return false;
 }
 
 GameBoard::~GameBoard()

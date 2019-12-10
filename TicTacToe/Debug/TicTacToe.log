@@ -1,7 +1,2 @@
-﻿  GameBoard.cpp
-  main.cpp
-C:\Users\jesse\source\repos\TicTacToe\TicTacToe\main.cpp(58,27): warning C4553: '==': result of expression not used; did you intend '='?
-C:\Users\jesse\source\repos\TicTacToe\TicTacToe\main.cpp(74,27): warning C4553: '==': result of expression not used; did you intend '='?
-  Generating Code...
-C:\Users\jesse\source\repos\TicTacToe\TicTacToe\GameBoard.cpp(163): warning C4715: 'GameBoard::winCheck': not all control paths return a value
-  TicTacToe.vcxproj -> C:\Users\jesse\source\repos\TicTacToe\Debug\TicTacToe.exe
+﻿  main.cpp
+  TicTacToe.vcxproj -> C:\Users\s199083\source\repos\TicTacToe\Debug\TicTacToe.exe
