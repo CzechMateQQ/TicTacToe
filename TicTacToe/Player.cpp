@@ -9,8 +9,3 @@ Player::~Player()
 {
 
 }
-
-void Player::turn()
-{
-	
-}

@@ -14,6 +14,7 @@ public:
 	void printBoardArr(GameBoard& game, int _size);
 	bool winCheck(GameBoard& game, int _size, int player);
 	bool tieCheck(GameBoard& game, int _size);
+
 	int boardSize;
 	int** board;
 };

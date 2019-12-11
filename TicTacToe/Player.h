@@ -10,7 +10,7 @@ class Player
 public:
 	Player();
 	~Player();
-	void turn();
+
 	char name[10];
 	int cellChoice;
 };

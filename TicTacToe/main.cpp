@@ -10,13 +10,13 @@ using std::endl;
 int main()
 {
 	bool playAgain = true;
-	//Play again loop
-	while (playAgain)
+
+	while (playAgain) //Play again loop
 	{
 		Player playerOne;
 		Player playerTwo;
 
-		int size = 0;
+		int gameSize = 0; // game board size
 
 		//Obtain player data and game board data
 		cout << "Please enter player one's name:" << endl;
@@ -32,36 +32,39 @@ int main()
 		cout << "Welcome " << playerTwo.name << "!\n" << endl;
 
 		cout << "Please select game board size from 3 to 10" << endl;
-		cin >> size;
+		cin >> gameSize;
 
-		while (size < 3 || size > 10 || !cin)
+		//Invalid input catch
+		while (gameSize < 3 || gameSize > 10 || !cin)
 		{
 			cin.clear();
 			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			cout << "Invalid input, please try again." << endl;
-			cin >> size;
+			cin >> gameSize;
 		}
 
 		cout << "\nLet the game begin!" << endl;
 		system("pause");
 
-		bool winCondition = false;
+		bool winCondition = false; //Game loop condition
 		int playAgainNum = 0;
 
-		GameBoard gameTest;
+		GameBoard gameTest; //Initialize game board
 
 		system("CLS");
-		gameTest.createBoardArr(gameTest, size);
+		gameTest.createBoardArr(gameTest, gameSize); //Populate game board based on size
 
 		//Game loop
 		while(!winCondition)
 		{
-			gameTest.printBoardArr(gameTest, size);
+			gameTest.printBoardArr(gameTest, gameSize); //Print board to console
 
-			cout << playerOne.name << "'s turn.\nEnter cell symbol to replace with 'X'" << endl;
+			//Player one's turn
+			cout << playerOne.name << "'s turn.\nEnter cell number to replace with 'X'" << endl;
 			cin >> playerOne.cellChoice;
 
-			while (playerOne.cellChoice > (size * size) || !cin)
+			//Invalid input catch
+			while (playerOne.cellChoice > (gameSize * gameSize) || !cin || gameTest.board[(playerOne.cellChoice - 1) / gameSize][(playerOne.cellChoice - 1) % gameSize] < 0)
 			{
 				cin.clear();
 				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -70,12 +73,13 @@ int main()
 			}
 
 			playerOne.cellChoice -= 1;
-			gameTest.board[playerOne.cellChoice / size][playerOne.cellChoice % size] = -1;
+			gameTest.board[playerOne.cellChoice / gameSize][playerOne.cellChoice % gameSize] = -1; //Sets array coordinate respective to cell choice
 
 			system("CLS");
-			gameTest.printBoardArr(gameTest, size);
+			gameTest.printBoardArr(gameTest, gameSize); //Update board
 
-			if (gameTest.winCheck(gameTest, size, -1))
+			//Win check
+			if (gameTest.winCheck(gameTest, gameSize, -1))
 			{
 				cout << playerOne.name << " wins!" << endl;
 				system("pause");
@@ -84,7 +88,8 @@ int main()
 
 			if (!winCondition)
 			{
-				if (gameTest.tieCheck(gameTest, size))
+				//Tie check
+				if (gameTest.tieCheck(gameTest, gameSize))
 				{
 					cout << "The game is a tie." << endl;
 					system("pause");
@@ -92,12 +97,14 @@ int main()
 				}
 
 				system("CLS");
-				gameTest.printBoardArr(gameTest, size);
+				gameTest.printBoardArr(gameTest, gameSize);
 
-				cout << playerTwo.name << "'s turn.\nEnter cell symbol to replace with 'O'" << endl;
+				//Player two's turn
+				cout << playerTwo.name << "'s turn.\nEnter cell number to replace with 'O'" << endl;
 				cin >> playerTwo.cellChoice;
 
-				while (playerTwo.cellChoice > (size * size) || !cin)
+				//Invalid input check
+				while (playerTwo.cellChoice > (gameSize * gameSize) || !cin || gameTest.board[(playerTwo.cellChoice - 1) / gameSize][(playerTwo.cellChoice - 1) % gameSize] < 0)
 				{
 					cin.clear();
 					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -106,12 +113,13 @@ int main()
 				}
 
 				playerTwo.cellChoice -= 1;
-				gameTest.board[playerTwo.cellChoice / size][playerTwo.cellChoice % size] = -2;
+				gameTest.board[playerTwo.cellChoice / gameSize][playerTwo.cellChoice % gameSize] = -2; //Sets array coordinate respective to cell choice
 
 				system("CLS");
-				gameTest.printBoardArr(gameTest, size);
+				//Update board
+				gameTest.printBoardArr(gameTest, gameSize);
 
-				if (gameTest.winCheck(gameTest, size, -2))
+				if (gameTest.winCheck(gameTest, gameSize, -2))
 				{
 					cout << playerTwo.name << " wins!" << endl;
 					system("pause");
@@ -120,7 +128,7 @@ int main()
 
 				if (!winCondition)
 				{
-					if (gameTest.tieCheck(gameTest, size))
+					if (gameTest.tieCheck(gameTest, gameSize))
 					{
 						cout << "The game is a tie." << endl;
 						system("pause");

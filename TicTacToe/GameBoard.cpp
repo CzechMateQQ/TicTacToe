@@ -7,6 +7,11 @@ GameBoard::GameBoard()
 {     
 }
 
+GameBoard::~GameBoard()
+{
+}
+
+//Define board cell numbers
 void GameBoard::createBoardArr(GameBoard& game, int _size)
 {
 	int val = 1;
@@ -23,17 +28,20 @@ void GameBoard::createBoardArr(GameBoard& game, int _size)
 	}
 }
 
+//Print numbers in respective cells for user readability and interaction
 void GameBoard::printBoardArr(GameBoard& game, int _size)
 {
-	//Print numbers 1 to "_size" in respective cells for
-	//user readability and interaction
 	for (int i = 0; i < _size; ++i)
 	{
 			for (int j = 0; j < _size; ++j)
 			{
+				//Multi digit cell numbers require less spacing
 				if (game.board[i][j] < 10)
 				{
-					std::string tmp = game.board[i][j] > 0 ? std::to_string(game.board[i][j]) : game.board[i][j] == -1 ?  "X":"O";
+					//If cell number is greater than 0 (unselected), convert to string
+					//Else print 'X' or 'O' based on playerOne = -1 and playerTwo = -2
+					std::string tmp = game.board[i][j] > 0 ? 
+						std::to_string(game.board[i][j]) : game.board[i][j] == -1 ?  "X":"O";
 					cout << "   " << tmp << "  " << "|";
 				}
 				else if(game.board[i][j] >= 10 && game.board[i][j] < 100)
@@ -68,10 +76,12 @@ bool GameBoard::winCheck(GameBoard& game, int _size, int player)
 	{
 		for (int j = 0; j < _size; ++j)
 		{
+			//Check rows
 			if (game.board[i][j] == player)
 			{
 				horiz++;
 			}
+			//Check columns
 			if (game.board[j][i] == player)
 			{
 				vert++;
@@ -90,10 +100,12 @@ bool GameBoard::winCheck(GameBoard& game, int _size, int player)
 	{
 		for (int j = 0; j < _size; ++j)
 		{
+			//i value is equal to j value for entire diagonal
 			if (i == j && game.board[i][j] == player)
 			{
 				diagOne++;
 			}
+			//i + j is equal to one less than the board size for entire diagonal
 			if ((i + j) == (_size - 1) && game.board[i][j] == player)
 			{
 				diagTwo++;
@@ -110,6 +122,7 @@ bool GameBoard::winCheck(GameBoard& game, int _size, int player)
 
 bool GameBoard::tieCheck(GameBoard& game, int _size)
 {
+	//Tie occurs when all spaces are filled and no winner
 	int counter = 0;
 	for (int i = 0; i < _size; ++i)
 	{
@@ -126,8 +139,4 @@ bool GameBoard::tieCheck(GameBoard& game, int _size)
 		return true;
 	}
 	return false;
-}
-
-GameBoard::~GameBoard()
-{
 }
