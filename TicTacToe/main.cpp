@@ -7,6 +7,14 @@ using std::cout;
 using std::cin;
 using std::endl;
 
+void invalidInput(int& num)
+{
+	cin.clear();
+	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	cout << "Invalid input, please try again." << endl;
+	cin >> num;
+}
+
 int main()
 {
 	bool playAgain = true;
@@ -37,10 +45,7 @@ int main()
 		//Invalid input catch
 		while (gameSize < 3 || gameSize > 10 || !cin)
 		{
-			cin.clear();
-			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			cout << "Invalid input, please try again." << endl;
-			cin >> gameSize;
+			invalidInput(gameSize);
 		}
 
 		cout << "\nLet the game begin!" << endl;
@@ -66,10 +71,7 @@ int main()
 			//Invalid input catch
 			while (playerOne.cellChoice > (gameSize * gameSize) || !cin || gameTest.board[(playerOne.cellChoice - 1) / gameSize][(playerOne.cellChoice - 1) % gameSize] < 0)
 			{
-				cin.clear();
-				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-				cout << "Invalid input, try again:" << endl;
-				cin >> playerOne.cellChoice;
+				invalidInput(playerOne.cellChoice);
 			}
 
 			playerOne.cellChoice -= 1;
@@ -106,10 +108,7 @@ int main()
 				//Invalid input check
 				while (playerTwo.cellChoice > (gameSize * gameSize) || !cin || gameTest.board[(playerTwo.cellChoice - 1) / gameSize][(playerTwo.cellChoice - 1) % gameSize] < 0)
 				{
-					cin.clear();
-					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-					cout << "Invalid input, try again:" << endl;
-					cin >> playerTwo.cellChoice;
+					invalidInput(playerTwo.cellChoice);
 				}
 
 				playerTwo.cellChoice -= 1;
